@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Surprise ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Caveat:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #ff7597;
+            --secondary: #ffccd5;
+            --bg: #fff0f3;
+            --yes: #2ecc71;
+            --no: #ff4d4d;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255, 117, 151, 0.2);
+            width: 85%;
+            max-width: 400px;
+            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .active { display: block; }
+
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #customAlert {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--no);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-family: 'Caveat', cursive; color: var(--primary); font-size: 3rem; margin: 10px 0; }
+        p { color: #555; font-size: 1.1rem; line-height: 1.4; }
+
+        .btn {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+            margin: 10px 5px;
+        }
+
+        .btn-main { background: var(--primary); }
+        .btn-yes { background: var(--yes); }
+        .btn-no { background: var(--no); }
+
+        .foto {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: 50% 20%; /* Disesuaikan agar wajah lebih terlihat */
+            margin-bottom: 15px;
+            border: 4px solid var(--secondary);
+        }
+
+        .floating { position: absolute; pointer-events: none; z-index: 1; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="TunggalEka.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="slide active" id="slide1">
+        <h1>Hallo Farida Sayang... ❤️</h1>
+        <p>Penasaran ya? Klik di bawah!</p>
+        <button class="btn btn-main" onclick="nextSlide(2); playMusic()">Sini sini klik aku</button>
+    </div>
+
+    <div class="slide" id="slide2">
+        <div id="customAlert">Ups, jangan itu! Pilih lagi ya ❤️</div>
+        <h1>Pertanyaan Serius! 😳</h1>
+        <p>Kamu sayang aku apa tidak?</p>
+        <button class="btn btn-no" onclick="showNotif()">Tidak ❌</button>
+        <button class="btn btn-yes" onclick="celebrate(); nextSlide(3)">IYA! ✅</button>
+    </div>
+
+    <div class="slide" id="slide3">
+        <img src="FOTO5.jpeg" class="foto">
+        <h1>You're My Choice! 💖</h1>
+        <p>Makasih ya sayang, semoga kamu sayang aku sampai ajal menjemput kita. Jangan capek sama aku!</p>
+        <button class="btn btn-main" onclick="nextSlide(4)">Lanjut ➡️</button>
+    </div>
+
+    <div class="slide" id="slide4">
+        <img src="FOTO8.jpeg" class="foto">
+        <h1>Happy Birthday! 🎂</h1>
+        <p>SELAMAT ULANG TAHUN SAYANGKUUU. Tetap jadi orang baik dan penyabar menghadapi aku ini ya, Sayang.</p>
+        <button class="btn btn-main" onclick="nextSlide(5)">Kejutan Lain... ➡️</button>
+    </div>
+
+    <div class="slide" id="slide5">
+        <h1>My Wish... 🌙</h1>
+        <p>Aku harap kita bisa terus bareng-bareng di setiap ulang tahun kita. Cepat rubah mindset yang tidak pantas untuk kedepannya ya, sayang.</p>
+        <button class="btn btn-main" onclick="nextSlide(6)">Lanjut ❤️</button>
+    </div>
+
+    <div class="slide" id="slide6">
+        <img src="FOTO3.jpeg" class="foto">
+        <h1>Terima Kasih... ✨</h1>
+        <p>Bahkan kamu tidur aja tetap cantik dan lucu di mataku. Kuharap dirimu cantik dan lucu sampai tua nanti. Jangan cuma wajah yang cantik, perilaku dan sikap harus ikut cantik.</p>
+        <button class="btn btn-main" onclick="nextSlide(7)">Terakhir ❤️</button>
+    </div>
+
+    <div class="slide" id="slide7">
+        <img src="FOTO10.jpeg" class="foto">
+        <h1>I Love You! 🌸</h1>
+        <p>Seperti lagunya Denny Caknan - Tunggal Eka: "Tak usahake panyuwunmu tak pasrahke jantung atiku". Selamanya ya sampai buyut? Janji? ❤️</p>
+        <h2 style="font-family:'Dancing Script'; color:var(--primary); margin-top:0">~ From Me ~</h2>
+        <button class="btn btn-main" onclick="location.reload()">Ulangi 🔄</button>
+    </div>
+    
+    <script>
+        function nextSlide(n) {
+            const target = document.getElementById('slide' + n);
+            if (target) {
+                document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+                target.classList.add('active');
+            }
+        }
+
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Musik memerlukan interaksi user"));
+        }
+
+        function showNotif() {
+            const notif = document.getElementById('customAlert');
+            notif.style.display = 'block';
+            setTimeout(() => { notif.style.display = 'none'; }, 2000);
+        }
+
+        function celebrate() {
+            confetti({ 
+                particleCount: 150, 
+                spread: 70, 
+                origin: { y: 0.6 },
+                zIndex: 999 
+            });
+        }
+
+        // Efek Dekorasi Melayang (Hati & Bunga)
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating';
+            heart.innerHTML = ['❤️','✨','🌸','💖'][Math.floor(Math.random()*4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            const duration = Math.random() * 3000 + 3000;
+            heart.animate([
+                { transform: 'translateY(110vh)', opacity: 1 },
+                { transform: 'translateY(-10vh)', opacity: 0 }
+            ], { duration: duration });
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), duration);
+        }, 300);
+    </script>
+</body>
+</html>
